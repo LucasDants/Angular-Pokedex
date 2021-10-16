@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface PokeListResponse {
   created: string;
@@ -29,6 +30,10 @@ export class PokeapiService {
         this.pokeList = this.sortPokemon(response.pokemon).filter(pokemon => pokemon.number < 1000)
       }
     )
+  }
+
+  getPokemon(number: number): Observable<any> {
+    return this.http.get(`${this.url}/pokemon/${number}`)
   }
 
   private getNumberFromurl(url: string) {
